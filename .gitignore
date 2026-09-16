@@ -1,0 +1,9 @@
+node_modules/
+dist/
+work/
+.sites-runtime/
+.env*
+*.tsbuildinfo
+coverage/
+playwright-report/
+test-results/
