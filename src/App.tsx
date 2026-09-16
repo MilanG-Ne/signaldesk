@@ -210,6 +210,7 @@ export function App() {
         </section>
         <Timeline
           events={chartEvents}
+          domain={source}
           selected={filters.range}
           onSelect={(range) => {
             replay.pause();

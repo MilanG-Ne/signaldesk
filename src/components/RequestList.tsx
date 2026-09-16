@@ -55,6 +55,9 @@ export const RequestList = memo(function RequestList({
           aria-label="Requests"
           aria-describedby="list-keyboard-hint"
           tabIndex={0}
+          onPointerEnter={onInspect}
+          onPointerDown={onInspect}
+          onFocus={onInspect}
           aria-activedescendant={active ? `row-${selectedId}` : undefined}
           onScroll={(e) => {
             if (e.currentTarget.scrollTop > ROW_HEIGHT) onInspect();

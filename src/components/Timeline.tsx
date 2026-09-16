@@ -3,15 +3,22 @@ import { histogram } from '../lib/filters';
 import { time, type RequestEvent } from '../lib/events';
 export const Timeline = memo(function Timeline({
   events,
+  domain,
   selected,
   onSelect,
 }: {
   events: readonly RequestEvent[];
+  domain: readonly RequestEvent[];
   selected: number | null;
   onSelect: (minute: number | null) => void;
 }) {
   const [focus, setFocus] = useState(0);
-  const bins = useMemo(() => histogram(events), [events]);
+  const bins = useMemo(() => {
+    const matches = new Map(histogram(events).map((bin) => [bin.minute, bin]));
+    return histogram(domain).map(
+      (bin) => matches.get(bin.minute) ?? { minute: bin.minute, total: 0, errors: 0 },
+    );
+  }, [events, domain]);
   const maximum = Math.max(1, ...bins.map((bin) => bin.total));
   return (
     <section className="timeline" aria-label="Request volume by minute">
@@ -51,9 +58,9 @@ export const Timeline = memo(function Timeline({
           >
             <span
               className="bar-fill"
-              style={{ height: `${Math.max(4, (bin.total / maximum) * 100)}%` }}
+              style={{ height: bin.total ? `${Math.max(4, (bin.total / maximum) * 100)}%` : 0 }}
             >
-              <span style={{ height: `${(bin.errors / bin.total) * 100}%` }} />
+              <span style={{ height: `${bin.total ? (bin.errors / bin.total) * 100 : 0}%` }} />
             </span>
           </button>
         ))}

@@ -62,7 +62,13 @@ export function Inspector({
       <div className="inspect-status">
         <span className={`status status-${Math.floor(event.status / 100)}`}>
           {event.status}{' '}
-          {failed ? 'Service unavailable' : event.status === 404 ? 'Not found' : 'OK'}
+          {failed
+            ? 'Service unavailable'
+            : event.status === 404
+              ? 'Not found'
+              : event.status === 201
+                ? 'Created'
+                : 'OK'}
         </span>
         <span className="mono muted">{time(event.timestamp)} UTC</span>
       </div>

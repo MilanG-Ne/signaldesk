@@ -2,14 +2,10 @@
   "name": "signaldesk",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "description": "A browser-only request explorer built with React and TypeScript",
   "license": "MIT",
   "author": "Milan Georgijevic",
-  "engines": {
-    "node": ">=24"
-  },
-  "packageManager": "pnpm@11.19.0",
+  "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 3002 --strictPort",
     "build": "tsc -b && vite build",
@@ -20,22 +16,26 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "react": "19.2.6",
-    "react-dom": "19.2.6",
+    "@tanstack/react-virtual": "3.14.13",
     "lucide-react": "1.31.0",
-    "@tanstack/react-virtual": "3.14.13"
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
   },
   "devDependencies": {
-    "@types/react": "19.2.14",
-    "@types/react-dom": "19.2.3",
-    "@types/node": "22.19.19",
-    "@vitejs/plugin-react": "6.0.2",
-    "vite": "8.0.13",
-    "typescript": "5.9.3",
-    "vitest": "5.0.1",
+    "@playwright/test": "1.63.0",
     "@testing-library/react": "16.3.3",
     "@testing-library/user-event": "14.6.7",
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.2",
     "jsdom": "30.0.1",
-    "@playwright/test": "1.63.0"
-  }
+    "typescript": "5.9.3",
+    "vite": "8.0.13",
+    "vitest": "5.0.1"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@11.19.0"
 }

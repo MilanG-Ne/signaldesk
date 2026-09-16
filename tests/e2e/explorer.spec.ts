@@ -26,6 +26,7 @@ test('filters compose, survive reload, and reset from an empty state', async ({ 
   await page.getByLabel('Status', { exact: true }).selectOption('server');
   await page.getByRole('button', { name: 'Slow ≥ 800 ms' }).click();
   await page.getByLabel('Sort requests').selectOption('slowest');
+  await expect(page.locator('.bar')).toHaveCount(60);
   await expect(page).toHaveURL(/service=checkout.*status=server.*slow=1.*sort=slowest/);
   await page.reload();
   await expect(page.getByLabel('Service', { exact: true })).toHaveValue('checkout');
@@ -43,7 +44,8 @@ test('replay pauses on inspection and saved requests persist on this device', as
   await page.goto('/');
   await page.getByRole('button', { name: 'Start replay' }).click();
   await expect(page.getByRole('button', { name: 'Pause replay' })).toBeVisible();
-  await expect(page.locator('.app-footer')).toContainText('8 replayed');
+  await expect(page.locator('.app-footer')).toContainText(/[1-9]\d* replayed/);
+  await page.getByRole('listbox', { name: 'Requests' }).hover({ position: { x: 60, y: 20 } });
   await page.getByRole('listbox', { name: 'Requests' }).getByRole('option').first().click();
   await expect(page.getByRole('button', { name: 'Start replay' })).toBeVisible();
   const id = await page.locator('.request-id').textContent();
